@@ -488,7 +488,7 @@
 
         range.on('input', function(){
           // console.log('slider change: ' + this.value);
-          sliderAmount = this.value;
+          sliderAmount = parseInt(this.value);
           $(this).next(value).html(this.value);
         });
       });
