@@ -1,57 +1,453 @@
 <!doctype html>
 <html>
   <head>
-	<link href="https://fonts.googleapis.com/css?family=Inconsolata:700" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Inconsolata:700" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
     <title>Cafe Codey</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font-size: 50px; font-family: 'Inconsolata', monospace; margin:0; height: 100vh}
-      .app { 
-		  display: flex; align-items: center; justify-content: flex-start; flex-direction: column; height: inherit; 
-		  background: white; /* For browsers that do not support gradients */
-		  background: -webkit-radial-gradient(white 5%, #D7D7D7 100%); /* Safari 5.1-6.0 */
-		  background: -o-radial-gradient(white 5%, #D7D7D7 100%); /* For Opera 11.6-12.0 */
-		  background: -moz-radial-gradient(white 5%, #D7D7D7 100%); /* For Firefox 3.6-15 */
-		  background: radial-gradient(white 5%, #D7D7D7 100%); /* Standard syntax */
+      body { font-size: 50px; font-family: 'Oswald', sans-serif; margin:0; height: 100vh}
+      .app {
+  		  display: flex; align-items: center; justify-content: flex-start; flex-direction: column; height: inherit;
+  		  background: white; /* For browsers that do not support gradients */
+  		  background: -webkit-radial-gradient(white 5%, #D7D7D7 100%); /* Safari 5.1-6.0 */
+  		  background: -o-radial-gradient(white 5%, #D7D7D7 100%); /* For Opera 11.6-12.0 */
+  		  background: -moz-radial-gradient(white 5%, #D7D7D7 100%); /* For Firefox 3.6-15 */
+  		  background: radial-gradient(white 5%, #D7D7D7 100%); /* Standard syntax */
 		  }
       .title-block {margin: 4em auto; margin-bottom: 1em}
       #rfid {color: #DF3232; text-align: center}
+      #currAmount {
+        position: absolute;
+        /*top: 43%;
+        left: 41%;*/
+        text-overflow: ellipsis;
+        width: 120px;
+        height: 90px;
+        text-align: right;
+        color: #006CA9;
+        transform: translate(228%, 190%);
+      }
       .icon-block {margin: 0 auto; display:flex; align-items:center; justify-content: flex-start; flex-direction:column}
       .icon {width:50%; height: 50%}
+
+      svg {
+        /*position: absolute;*/
+        /*width: 50px;*/
+        /*top: 0;
+        bottom: 0;
+        left:0;
+        right:0;*/
+        margin: 0 auto;
+        overflow: overlay;
+      }
+
+      @keyframes dalit {
+        from {transform: translateX(0);}
+      	to {transform: translateY(60px);}
+      }
+
+      @keyframes dalit2 {
+        from {transform: translate(0);}
+      	to {transform: translate(24px, 44px); }
+      }
+
+      @keyframes dalit3 {
+        from {transform: translateX(0);}
+      	to {transform: translateY(35px);}
+      }
+
+      svg:hover #Coin {
+        animation: dalit 1s ease-in-out infinite;
+         animation-delay: 1s;
+      animation-iteration-count:1;
+      animation-fill-mode:forwards;
+      }
+
+      svg:hover #Coin2 {
+        animation: dalit2 1s;
+        animation-timing-function: ease-in-out;
+        animation-delay: .6s;
+        animation-iteration-count:1;
+        animation-fill-mode:forwards;
+      }
+
+      svg:hover #Coin3 {
+        animation: dalit3 .8s ease-in-out infinite;
+        animation-delay:.1s;
+        animation-iteration-count:1;
+        animation-fill-mode:forwards;
+      }
+
+      #title {
+        color: #006CA9;
+      }
+
+      .range-slider {
+        width: 300px;
+        position: absolute;
+        position: absolute;
+        /*top: 52%;
+        left: 40%;*/
+        transform: translate(85%, 350%);
+      }
+
+      .range-slider__range {
+        -webkit-appearance: none;
+        width: calc(100% - (150px));
+        height: 10px;
+        border-radius: 5px;
+        background: #F3B53D;
+        outline: none;
+        padding: 0;
+        margin: 0;
+      }
+      .range-slider__range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+                appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #006CA9;
+        cursor: pointer;
+        -webkit-transition: background .15s ease-in-out;
+        transition: background .15s ease-in-out;
+      }
+      .range-slider__range::-webkit-slider-thumb:hover {
+        background: #F3B53D;
+      }
+      .range-slider__range:active::-webkit-slider-thumb {
+        background: #F3B53D;
+      }
+      .range-slider__range::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border: 0;
+        border-radius: 50%;
+        background: #2c3e50;
+        cursor: pointer;
+        -webkit-transition: background .15s ease-in-out;
+        transition: background .15s ease-in-out;
+      }
+      .range-slider__range::-moz-range-thumb:hover {
+        background: #F3B53D;
+      }
+      .range-slider__range:active::-moz-range-thumb {
+        background: #F3B53D;
+      }
+
+      .range-slider__value {
+        /*display: inline-block;*/
+        position: relative;
+        width: 60px;
+        color: #fff;
+        line-height: 20px;
+        text-align: center;
+        border-radius: 3px;
+        background: #006CA9;
+        padding: 5px 10px;
+        margin-left: 8px;
+        font-size: 20px;
+      }
+      .range-slider__value:after {
+        position: absolute;
+        top: 15px;
+        left: -7px;
+        width: 0;
+        height: 0;
+        border-top: 7px solid transparent;
+        border-right: 7px solid #006CA9;
+        border-bottom: 7px solid transparent;
+        content: '';
+      }
+
+      ::-moz-range-track {
+        background: #d7dcdf;
+        border: 0;
+      }
+
+      input::-moz-focus-inner,
+      input::-moz-focus-outer {
+        border: 0;
+      }
+
+      .buttons {
+        position: absolute;
+        text-shadow: 0;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        /*top: 63.5%;
+        left: 39.5%;*/
+        transform: translate(119%, 952%);
+      }
+
+      button {
+        outline: none;
+        height: 40px;
+        text-align: center;
+        width: 100px;
+        border-radius: 10px;
+        background: transparent;
+        border: 5px solid #1ECD97;
+        color: #1ECD97;
+        letter-spacing: 1px;
+        text-shadow: 0;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        -webkit-transition: all 0.25s ease;
+        transition: all 0.25s ease;
+      }
+      button:hover {
+        color: white;
+        background: #1ECD97;
+      }
+      button:active {
+        letter-spacing: 2px;
+      }
+      button:after {
+        font-family: 'Oswald', sans-serif;
+        content: "DEPOSIT";
+      }
+
+      #withdraw {
+        border: 5px solid #BC412B;
+        color: #BC412B;
+      }
+
+      #withdraw:hover {
+        color: white;
+        background: #BC412B;
+      }
+
+      #withdraw:after {
+        content: "WITHDRAW";
+      }
+
+      #deposit {
+        margin-left: 15px;
+      }
     </style>
   </head>
-  
+
   <body>
 	  <div class="app">
 		  <div class="title-block">
-			  <p id="rfid">WAITING ON A RFID TAG</p>
+			  <p id="title">WELCOME TO THE LEGO WEBSTER BANK</p>
+        <p id="currAmount">0</p>
+        <div class="range-slider">
+          <input class="range-slider__range" type="range" value="250" min="0" max="1000" step="25">
+          <span class="range-slider__value">0</span>
+        </div>
+        <div class="buttons">
+          <button id="withdraw"/>
+          <button id="deposit"/>
+        </div>
 		  </div>
 		  <div class="icon-block">
-			<img class="icon" src="/static/logo.png"/>
+			<!-- <img class="icon" src="/static/logo.png"/> -->
+
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      	 enable-background="new 0 0 108.8 158.2" width="441px" height="705px" viewBox="0 0 441 705" xml:space="preserve">
+         <defs>
+             <polygon id="path-1" points="0.0648453326 41 0.0648453326 0.167187349 209.833012 0.167187349 209.833012 41"></polygon>
+         </defs>
+         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+             <g id="atm" transform="translate(1.000000, 1.000000)">
+                 <path d="M419.045455,638.340509 L416.981191,638.340509 L416.981191,54.3414873 C416.981191,36.514728 402.473549,22.0117417 384.641066,22.0117417 L372.943574,22.0117417 L372.943574,21.3238748 C372.943574,9.5654775 363.375025,0 351.612853,0 L87.3871473,0 C75.6249749,0 66.0564263,9.5654775 66.0564263,21.3238748 L66.0564263,22.0117417 L54.3589342,22.0117417 C36.5264514,22.0117417 22.0188088,36.514728 22.0188088,54.3414873 L22.0188088,638.340509 L19.9545455,638.340509 C8.95202194,638.340509 0,647.289658 0,658.28865 L0,692.681996 C0,698.380286 4.62119749,703 10.3213166,703 L428.678683,703 C434.378803,703 439,698.380286 439,692.681996 L439,658.28865 C439,647.289658 430.047978,638.340509 419.045455,638.340509 Z M384.641066,42.6477495 C391.091201,42.6477495 396.338558,47.8934227 396.338558,54.3414873 L396.338558,638.340509 L372.943574,638.340509 L372.943574,42.6477495 L384.641066,42.6477495 Z M86.6990596,638.340509 L86.6990596,405.841487 L352.30094,405.841487 L352.30094,638.340509 L86.6990596,638.340509 Z M86.6990596,317.794521 L352.30094,317.794521 L352.30094,385.205479 L86.6990596,385.205479 L86.6990596,317.794521 Z M352.30094,297.158513 L86.6990596,297.158513 L86.6990596,75.665362 L352.30094,75.665362 L352.30094,297.158513 Z M87.3871473,20.6360078 L351.612853,20.6360078 C351.992677,20.6360078 352.30094,20.9455479 352.30094,21.3238748 L352.30094,55.0293542 L86.6990596,55.0293542 L86.6990596,21.3238748 C86.6990596,20.9455479 87.0073229,20.6360078 87.3871473,20.6360078 Z M42.661442,54.3414873 C42.661442,47.8934227 47.9087994,42.6477495 54.3589342,42.6477495 L66.0564263,42.6477495 L66.0564263,638.340509 L42.661442,638.340509 L42.661442,54.3414873 Z M418.357367,682.363992 L20.6426332,682.363992 L20.6426332,658.976517 L418.357367,658.976517 L418.357367,682.363992 Z" id="Shape" stroke="#000000" fill="#000000" fill-rule="nonzero"></path>
+                 <path d="M127.92,597.08 C125.974,595.12 123.258,594 120.5,594 C117.742,594 115.026,595.12 113.08,597.08 C111.12,599.026 110,601.742 110,604.5 C110,607.258 111.12,609.974 113.08,611.92 C115.026,613.88 117.728,615 120.5,615 C123.258,615 125.974,613.88 127.92,611.92 C129.88,609.974 131,607.258 131,604.5 C131,601.742 129.88,599.026 127.92,597.08 Z" id="Shape" fill="#F3B53D" fill-rule="nonzero"></path>
+                 <path d="M131.349057,230 L307.650943,230 C319.423226,230 329,220.412179 329,208.626316 L329,120.373684 C329,108.587821 319.423226,99 307.650943,99 L131.349057,99 C119.576774,99 110,108.587821 110,120.373684 L110,208.626316 C110,220.412179 119.576774,230 131.349057,230 Z M307.650943,209.315789 L284.924528,209.315789 L284.924528,163.810526 L308.339623,163.810526 L308.339623,208.626316 C308.339623,209.005526 308.031094,209.315789 307.650943,209.315789 Z M308.339623,120.373684 L308.339623,143.126316 L284.924528,143.126316 L284.924528,119.684211 L307.650943,119.684211 C308.031094,119.684211 308.339623,119.994474 308.339623,120.373684 Z M130.660377,120.373684 C130.660377,119.994474 130.968906,119.684211 131.349057,119.684211 L264.264151,119.684211 L264.264151,209.315789 L131.349057,209.315789 C130.968906,209.315789 130.660377,209.005526 130.660377,208.626316 L130.660377,120.373684 Z" id="Shape" stroke="#006CA9" fill="#006CA9" fill-rule="nonzero"></path>
+                 <g id="Webster_Bank" transform="translate(115.000000, 449.000000)">
+                     <polyline id="Fill-1" fill="#006CA9" points="47 10 50.9098316 10 53.6659424 24.8392671 53.7267789 24.8392671 56.8479087 10 61.1520913 10 64.0287887 24.8392671 64.0896252 24.8392671 67.0901684 10 71 10 66.4535578 32 62.2112982 32 59.0304183 16.3370575 58.9695817 16.3370575 55.8180337 32 51.575774 32 47 10"></polyline>
+                     <path d="M80.6169777,21.485015 C80.5573838,19.2199538 79.4293549,17.8961288 77.6489849,17.8961288 C75.8675508,17.8961288 74.7395219,19.2199538 74.6809921,21.485015 L80.6169777,21.485015 Z M74.6809921,24.1292792 C74.7395219,27.5296924 76.1644565,28.8523888 77.8852325,28.8523888 C79.6081369,28.8523888 80.4083988,28.0330393 81.3289129,26.9010731 L84,28.6616587 C82.5761297,30.9921776 80.4977898,32 77.529797,32 C73.5221022,32 71,28.693259 71,23.4995313 C71,18.3058035 73.5221022,15.0001911 77.7075147,15.0001911 C81.7450065,14.9697194 84,18.5879487 84,22.5244377 L84,24.1292792 L74.6809921,24.1292792 L74.6809921,24.1292792 Z" id="Fill-2" fill="#006CA9"></path>
+                     <path d="M89.7741408,27.6103438 C90.5651937,28.2126555 91.0823786,28.9949065 92.6961266,28.9949065 C94.9470813,28.9949065 96.2258592,27.1901264 96.2258592,23.8844157 C96.2258592,20.5797825 94.9470813,18.7750024 92.6961266,18.7750024 C91.4784506,18.7750024 90.5346427,19.4074836 89.7741408,20.0970712 L89.7741408,27.6103438 Z M86,10 L89.7741408,10 L89.7741408,17.5132726 L89.8352428,17.5132726 C90.5957447,16.5219904 92.3917076,15.7699089 93.6693944,15.7699089 C97.7479542,15.7699089 100,19.6186698 100,23.4641983 C100,28.3322559 97.8690671,32 93.6693944,32 C91.9661757,32 90.7168576,31.3082574 89.3780687,30.0152806 L88.9514457,31.6993829 L86,31.6993829 L86,10 L86,10 Z" id="Fill-3" fill="#006CA9"></path>
+                     <path d="M110.124746,19.6283609 C109.351876,18.776273 108.329514,17.8959703 107.123083,17.8959703 C105.639438,17.8959703 104.957494,18.5257253 104.957494,19.503087 C104.957494,22.3031269 113,21.106818 113,27.0883622 C113,30.4876851 110.462946,32 107.093144,32 C104.525042,32 102.421549,30.8341632 101,28.6932218 L103.566993,26.7430127 C104.462946,28.0002656 105.670486,29.1040297 107.308261,29.1040297 C108.668823,29.1040297 109.598041,28.3478723 109.598041,27.2452367 C109.598041,24.4451968 101.557753,25.4507734 101.557753,19.7536347 C101.557753,16.6996614 104.093698,15 106.875809,15 C109.010349,15 111.14489,15.8182301 112.535391,17.4874195 L110.124746,19.6283609" id="Fill-4" fill="#006CA9"></path>
+                     <path d="M116.173385,16.1457025 L116.173385,11 L119.919143,11 L119.919143,16.1457025 L123,16.1457025 L123,19.1378888 L119.919143,19.1378888 L119.919143,27.9310556 C119.919143,28.7675808 120.343641,29.0088862 121.279268,29.0088862 C121.854289,29.0088862 122.456383,28.827639 123,28.7085951 L123,31.7597671 C121.974492,31.8798836 121.06702,32 120.040428,32 C117.261701,32 116.173385,30.6229508 116.173385,28.408304 L116.173385,19.1378888 L114,19.1378888 L114,16.1457025 L116.173385,16.1457025" id="Fill-5" fill="#006CA9"></path>
+                     <path d="M133.61568,21.485015 C133.556101,19.2199538 132.427285,17.8961288 130.648416,17.8961288 C128.866356,17.8961288 127.738604,19.2199538 127.681152,21.485015 L133.61568,21.485015 Z M127.681152,24.1292792 C127.738604,27.5296924 129.164252,28.8523888 130.884606,28.8523888 C132.607087,28.8523888 133.408217,28.0330393 134.328505,26.9010731 L137,28.6616587 C135.575415,30.9921776 133.497586,32 130.530322,32 C126.522547,32 124,28.693259 124,23.4995313 C124,18.3058035 126.522547,15.0001911 130.706932,15.0001911 C134.743432,14.9697194 137,18.5879487 137,22.5244377 L137,24.1292792 L127.681152,24.1292792 L127.681152,24.1292792 Z" id="Fill-6" fill="#006CA9"></path>
+                     <path d="M139,31 L139,15.3030303 L142.479403,15.3030303 L142.479403,17.9891775 L142.542904,17.9891775 C143.457096,16.1168831 144.740249,15.0595238 147,15 L147,18.9545455 C146.818256,18.9253247 146.602573,18.9253247 146.327768,18.9253247 C144.435883,18.9253247 142.787054,21.0681818 142.787054,21.4599567 L142.787054,31 L139,31" id="Fill-7" fill="#006CA9"></path>
+                     <path d="M153.035265,30.3537415 L158.301774,30.3537415 C162.213281,30.3537415 163.969153,28.9521823 163.969153,25.8453746 C163.969153,23.3164507 162.119414,21.3959978 157.654642,21.3959978 L153.035265,21.3959978 L153.035265,30.3537415 Z M153.035265,19.7519241 L157.869985,19.7519241 C160.488331,19.7519241 163.073548,18.8965688 163.073548,15.6663191 C163.073548,12.4371617 161.0427,11.6451661 157.040639,11.6451661 L153.035265,11.6451661 L153.035265,19.7519241 Z M151,10 L157.222852,10 C162.704704,10 165.107708,11.7063409 165.107708,15.5144744 C165.107708,17.8926461 164.183391,19.2625254 161.967018,20.2697254 C164.400942,21.334823 166,23.194101 166,25.9655395 C166,30.5361736 162.889126,32 158.085327,32 L151,32 L151,10 L151,10 Z" id="Fill-8" fill="#006CA9"></path>
+                     <path d="M177.951351,22.4295293 C170.774054,24.0659895 169.807568,25.6087765 169.807568,27.6865166 C169.807568,29.4809799 170.983784,30.4876851 172.611892,30.4876851 C174.301622,30.4876851 176.380541,29.4482507 177.951351,27.7813185 L177.951351,22.4295293 Z M178.251892,31.6851225 L178.008649,29.7021842 C176.141622,31.2427139 174.723243,32 172.313514,32 C169.869189,32 168,30.4256124 168,27.7181172 C168,23.2477594 171.497297,22.4295293 178.04,20.918343 L178.04,19.7841068 C178.04,17.6126934 177.136216,16.5100578 174.450811,16.5100578 C172.582703,16.5100578 171.044324,17.5822213 169.899459,19.4692292 L168.692973,18.7142004 C170.04973,16.0721636 171.977297,15 174.512432,15 C178.069189,15 179.76,16.5100578 179.76,20.1305849 L179.76,28.6932218 C179.76,29.5114519 179.819459,30.5824869 180,31.6851225 L178.251892,31.6851225 L178.251892,31.6851225 Z" id="Fill-9" fill="#006CA9"></path>
+                     <path d="M183,31 L183,15.3030303 L184.837205,15.3030303 L184.837205,17.7770563 C186.551491,16.0281385 187.959576,15 190.286263,15 C193.593013,15 195,16.8712121 195,20.2824675 L195,31 L193.16499,31 L193.16499,20.4632035 C193.16499,17.8690476 192.367112,16.4480519 189.917505,16.4480519 C187.959576,16.4480519 186.856594,17.6255411 184.837205,19.4383117 L184.837205,31 L183,31" id="Fill-10" fill="#006CA9"></path>
+                     <g id="Group-14">
+                         <mask id="mask-2" fill="white">
+                             <use xlink:href="#path-1"></use>
+                         </mask>
+                         <g id="Clip-12"></g>
+                         <polyline id="Fill-11" fill="#006CA9" mask="url(#mask-2)" points="197.894986 31.5270401 197.894986 9.59877113 199.705252 9.59877113 199.705252 24.1152656 206.967929 15.7344182 209.047302 15.7344182 203.953702 21.6250748 209.833012 31.5270401 207.81308 31.5270401 202.810262 22.9001135 199.705252 26.423619 199.705252 31.5270401 197.894986 31.5270401"></polyline>
+                         <path d="M20.2641664,38.8615065 C10.243401,38.8615065 2.12044238,30.6799179 2.12044238,20.5841381 C2.12044238,10.490536 10.243401,2.30459198 20.2641664,2.30459198 C30.2838511,2.30459198 38.4068097,10.490536 38.4068097,20.5841381 C38.4068097,30.6799179 30.2838511,38.8615065 20.2641664,38.8615065 Z M20.2641664,0.167187349 C9.07294279,0.167187349 0,9.31022694 0,20.5841381 C0,31.8591381 9.07294279,41 20.2641664,41 C31.4564708,41 40.5283329,31.8591381 40.5283329,20.5841381 C40.5283329,9.31022694 31.4564708,0.167187349 20.2641664,0.167187349 L20.2641664,0.167187349 Z" id="Fill-13" fill="#006CA9" mask="url(#mask-2)"></path>
+                     </g>
+                     <polyline id="Fill-15" fill="#F3B53D" points="16.7415199 30 7 12 13.49788 12 20 23.9926704 16.7415199 30"></polyline>
+                     <polyline id="Fill-16" fill="#F3B53D" points="25.7436378 30 16 12 22.5031811 12 29 23.9849743 25.7436378 30"></polyline>
+                     <polyline id="Fill-17" fill="#F3B53D" points="37 12 30.3293439 12 27 18 33.6750082 18 37 12"></polyline>
+                 </g>
+             </g>
+         </g>
+
+      <!-- <g id="Layer_1">
+      	<path fill="#88CB8F" d="M55.8,74.1c-5.2,0-10.2,0.9-14.6,2.6l-9.6-5.5v10.8c-4.5,3.6-7.8,8.2-9.2,13.4H16c-1.6,0-2.8,1.3-2.8,2.8
+      		v8.5c0,1.6,1.3,2.8,2.8,2.8h7.4c4.5,10.7,17.3,18.5,32.4,18.5c18.9,0,34.1-12.1,34.1-27S74.7,74.1,55.8,74.1z"/>
+      	<path fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" d="M41.6,91.2
+      		c0,2.4-1.9,4.3-4.3,4.3c-2.4,0-4.3-1.9-4.3-4.3"/>
+      	<path fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" d="M55.8,74.1
+      		c-5.2,0-10.2,0.9-14.6,2.6l-9.6-5.5v10.8c-4.5,3.6-7.8,8.2-9.2,13.4H16c-1.6,0-2.8,1.3-2.8,2.8v8.5c0,1.6,1.3,2.8,2.8,2.8h7.4
+      		c4.5,10.7,17.3,18.5,32.4,18.5c18.9,0,34.1-12.1,34.1-27S74.7,74.1,55.8,74.1z"/>
+      	<path fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" d="M95.7,96.9
+      		c0,2.4-1.9,4.3-4.3,4.3"/>
+      	<line fill="none" stroke="#4D5152" stroke-width="2.8454" stroke-miterlimit="10" x1="91.4" y1="101.2" x2="90" y2="101.2"/>
+      	<polyline fill="#88CB8F" points="44.4,121.1 44.4,131 33.1,131 33.1,115.4 	"/>
+      	<polyline fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" points="44.4,121.1
+      		44.4,131 33.1,131 33.1,115.4 	"/>
+      	<polyline fill="#88CB8F" points="78.6,115.4 78.6,131 67.2,131 67.2,121.1 	"/>
+      	<polyline fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" points="78.6,115.4
+      		78.6,131 67.2,131 67.2,121.1 	"/>
+      	<g id="Coin3">
+      		<circle fill="#F3B53D" stroke="#006CA9" stroke-width="2.2356" stroke-miterlimit="10" cx="67.2" cy="61.3" r="7.1"/>
+      	</g>
+      	<circle id="Coin2" fill="#F3B53D" stroke="#006CA9" stroke-width="2.2356" stroke-miterlimit="10" cx="45.9" cy="49.5" r="7.1"/>
+        </g>
+        <g id="Coin">
+        	<circle fill="#F3B53D" stroke="#006CA9" stroke-width="2.2356" stroke-miterlimit="10" cx="65.9" cy="34.3" r="7.1"/>
+        </g>
+        <g id="Layer_3">
+        	<path fill="#88CB8F" d="M74.3,86.6c-4.8-3.3-11.3-5.4-18.5-5.4l-6.5,14.2L64,107.6L84,99l-5.5-12.8L74.3,86.6z"/>
+        	<path fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" d="M55.8,81.2
+        		c7.2,0,13.7,2,18.5,5.4"/>
+        </g> -->
+      </svg>
+
 		  </div>
 	  </div>
-	  
-	  
+
+
 	  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	  <script>
-		$(function () {
-        var socket = io();
-        
-        socket.on('rfid', function(msg){
-			var welcomeMsg;
-			if(msg){
-				welcomeMsg = 'WELCOME, ' + msg.toUpperCase();
-			} else {
-				welcomeMsg = 'User was not recognized. Please go register at the booth.';
-				welcomeMsg = welcomeMsg.toUpperCase();
-			}
-			
-			$('#rfid').text(welcomeMsg);
-			
-          ///window.scrollTo(0, document.body.scrollHeight);
+    var currAmount = 1000;
+    $('#currAmount').text(currAmount);
+    var amounts = [50,100,150];
+    var sliderAmount = 250;
+    var types = ['Withdrawal', 'Deposit'];
+    var intervalId;
+
+    function makeIoTCall(transaction, current){
+      $.ajax({
+          url: "https://ingestion-rp6rinxyw1jd.us3.sfdcnow.com/streams/cumulus_bank_inpu001/transactions_conn001/event",
+          headers: {
+            "Authorization": "Bearer iguZgpnIwr8N60cD7cYgSMbYQm9QZXEY9AaqmeD6f4d2DoyvZNEhcQdzGSSFivDylWcXR5ShTu1AfMSCJi9sAj",
+            "Content-Type": "application/json"
+          },
+          method: "POST",
+          data: JSON.stringify({
+          	"accountNumber": "12345",
+          	"transactionType": "Withdrawl",
+          	"transactionAmount": transaction,
+          	"availableBalance": current,
+          	"accountStatus": "Active"
+          }),
+          success: function(data){
+            console.log('successfully reported IoT with: ' + JSON.stringify(data));
+          }
+      });
+    }
+
+    function randomChange(){
+      var amountToChange = Math.floor(Math.random() * 3);
+      var typeOfChange = Math.floor(Math.random() * 2);
+      var transactionAmount = amounts[amountToChange];
+      transactionAmount = (types[typeOfChange] === 'Withdrawal') ? transactionAmount * -1 : transactionAmount;
+
+      currAmount = currAmount + transactionAmount;
+      $('#currAmount').text(currAmount);
+      makeIoTCall(transactionAmount, currAmount);
+      // $.ajax({
+      //     url: "https://ingestion-rp6rinxyw1jd.us3.sfdcnow.com/streams/cumulus_bank_inpu001/transactions_conn001/event",
+      //     headers: {
+      //       "Authorization": "Bearer iguZgpnIwr8N60cD7cYgSMbYQm9QZXEY9AaqmeD6f4d2DoyvZNEhcQdzGSSFivDylWcXR5ShTu1AfMSCJi9sAj",
+      //       "Content-Type": "application/json"
+      //     },
+      //     method: "POST",
+      //     data: JSON.stringify({
+      //     	"accountNumber": "12345",
+      //     	"transactionType": "Withdrawl",
+      //     	"transactionAmount": transactionAmount,
+      //     	"availableBalance": currAmount,
+      //     	"accountStatus": "Active"
+      //     }),
+      //     success: function(data){
+      //       console.log('successfully reported IoT with: ' + JSON.stringify(data));
+      //     }
+      // });
+      console.log(currAmount);
+    }
+
+    intervalId = setInterval(randomChange, 30000);
+
+    var rangeSlider = function(){
+    var slider = $('.range-slider'),
+        range = $('.range-slider__range'),
+        value = $('.range-slider__value');
+
+    slider.each(function(){
+        value.each(function(){
+          var value = $(this).prev().attr('value');
+          $(this).html(value);
+        });
+
+        range.on('input', function(){
+          // console.log('slider change: ' + this.value);
+          sliderAmount = this.value;
+          $(this).next(value).html(this.value);
         });
       });
+    };
+
+    rangeSlider();
+
+    $('#withdraw').on("click", function(){
+      var transactionAmount = sliderAmount * -1;
+
+      currAmount = currAmount + transactionAmount;
+      $('#currAmount').text(currAmount);
+      makeIoTCall(transactionAmount, currAmount);
+    })
+
+    $('#deposit').on("click", function(){
+      var transactionAmount = sliderAmount;
+
+      currAmount = currAmount + transactionAmount;
+      $('#currAmount').text(currAmount);
+      makeIoTCall(transactionAmount, currAmount);
+    })
+
+    $('#Webster_Bank').on("click", function(){
+      if(intervalId){
+        console.log("clearing intervalid");
+        clearInterval(intervalId);
+        intervalId = null;
+      } else {
+        console.log("starting interval");
+        intervalId = setInterval(randomChange, 30000);
+      }
+    })
+
+		// $(function () {
+    //     var socket = io();
+    //
+    //     socket.on('rfid', function(msg){
+		// 	var welcomeMsg;
+		// 	if(msg){
+		// 		welcomeMsg = 'WELCOME, ' + msg.toUpperCase();
+		// 	} else {
+		// 		welcomeMsg = 'User was not recognized. Please go register at the booth.';
+		// 		welcomeMsg = welcomeMsg.toUpperCase();
+		// 	}
+    //
+		// 	$('#rfid').text(welcomeMsg);
+    //
+    //       ///window.scrollTo(0, document.body.scrollHeight);
+    //     });
+    //   });
 	  </script>
   </body>
 </html>
