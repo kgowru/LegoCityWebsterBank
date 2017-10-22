@@ -410,7 +410,17 @@
     var types = ['Withdrawal', 'Deposit'];
     var intervalId;
 
+    function coinAnimation(){
+      if ($("#coin").hasClass("play") ) {
+        $("#coin").removeClass('play');
+      }
+      setTimeout(function(){
+        $("#coin").addClass('play');
+      }, 150)
+    }
+
     function makeIoTCall(transaction, current){
+      coinAnimation();
       $.ajax({
           url: "https://ingestion-rp6rinxyw1jd.us3.sfdcnow.com/streams/cumulus_bank_inpu001/transactions_conn001/event",
           headers: {
@@ -485,31 +495,11 @@
 
     rangeSlider();
 
-
-    function coinAnimation(){
-      if ($("#coin").hasClass("play") ) {
-    		// mario.find('div.box').addClass('empty');
-    		// $("<audio class='block'></audio>").attr({
-    		// 	'src':'http://adobewordpress.com/tasarim/include/block-sound.mp3',
-    		// 	'autoplay':'autoplay'
-    		// }).appendTo("body");
-    		// setTimeout(function(){
-    		// 	$('audio.block').remove();
-    		// }, 800);
-        $("#coin").removeClass('play');
-      }
-    	// }else{
-      setTimeout(function(){
-        $("#coin").addClass('play');
-      }, 150)
-    }
-
     $('#withdraw').on("click", function(){
       var transactionAmount = sliderAmount * -1;
 
       currAmount = currAmount + transactionAmount;
       $('#currAmount').text(currAmount);
-      coinAnimation();
       makeIoTCall(transactionAmount, currAmount);
     })
 
