@@ -2,7 +2,6 @@ var express = require('express'),
 	app = express(),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
-	rc522 = require('rc522'),
 	jsforce = require('jsforce'),
 	bodyParser = require('body-parser');
 
