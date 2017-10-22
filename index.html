@@ -3,7 +3,24 @@
   <head>
 	<!-- <link href="https://fonts.googleapis.com/css?family=Inconsolata:700" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400" rel="stylesheet">
-    <title>Cafe Codey</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <title>Webster Bank</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font-size: 50px; font-family: 'Oswald', sans-serif; margin:0; height: 100vh}
@@ -228,6 +245,89 @@
       #deposit {
         margin-left: 15px;
       }
+
+      span.coin{
+        position:absolute;
+        width:60%;
+        text-align:center;
+        margin-top:0px;
+        opacity:0;
+      }
+      span.coin img{
+        transition:opacity .3s ease-out;
+      }
+
+      span.coin.play{
+        transition:all .5s ease-out;
+        -webkit-animation-name: position;
+        -webkit-animation-duration: 800ms;
+        -webkit-animation-timing-function: linear;
+        -moz-animation-name: position;
+        -moz-animation-duration: 800ms;
+        -moz-animation-timing-function: linear;
+        -ms-animation-name: position;
+        -ms-animation-duration: 800ms;
+        -ms-animation-timing-function: linear;
+        animation-name: position;
+        animation-duration: 800ms;
+        animation-timing-function: linear;
+      }
+
+      span.coin.play img{
+        -webkit-animation-name: spin;
+        -webkit-animation-duration: 400ms;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+        -moz-animation-name: spin;
+        -moz-animation-duration: 400ms;
+        -moz-animation-iteration-count: infinite;
+        -moz-animation-timing-function: linear;
+        -ms-animation-name: spin;
+        -ms-animation-duration: 400ms;
+        -ms-animation-iteration-count: infinite;
+        -ms-animation-timing-function: linear;
+        animation-name: spin;
+        animation-duration: 400ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+
+      @-moz-keyframes spin {
+          10% { width:90px;height:120px}
+          45% { width:3px;height:120px}
+          90% { width:90px;height:120px;}
+      }
+      @-webkit-keyframes spin {
+          10% { width:90px;height:120px}
+          45% { width:3px;height:120px}
+          90% { width:90px;height:120px;}
+      }
+      @keyframes spin {
+          10% { width:90px;height:120px}
+          45% { width:3px;height:120px}
+          90% { width:90px;height:120px;}
+      }
+
+      @-moz-keyframes position {
+          10% { margin-top:-100px;opacity:0;}
+          25% { margin-top:-130px;opacity:1;}
+          85% { margin-top:-180px;}
+          90% { margin-top:-200px;opacity:0;}
+      }
+      @-webkit-keyframes position {
+          10% { margin-top:-100px;opacity:0;}
+          25% { margin-top:-130px;opacity:1;}
+          85% { margin-top:-180px;}
+          90% { margin-top:-200px;opacity:0;}
+      }
+      @keyframes position {
+          10% { margin-top:-100px;opacity:0;}
+          25% { margin-top:-130px;opacity:1;}
+          85% { margin-top:-180px;}
+          90% { margin-top:-200px;opacity:0;}
+      }
+
+
     </style>
   </head>
 
@@ -244,6 +344,7 @@
           <button id="withdraw"/>
           <button id="deposit"/>
         </div>
+        <span class="coin" id="coin"><img src="http://adobewordpress.com/tasarim/images/coin.png"></span>
 		  </div>
 		  <div class="icon-block">
 			<!-- <img class="icon" src="/static/logo.png"/> -->
@@ -283,37 +384,16 @@
                  </g>
              </g>
          </g>
+         <!-- <g id="Coin3">
+       		<circle fill="#F3B53D" stroke="#006CA9" stroke-width="2.2356" stroke-miterlimit="10" cx="67.2" cy="61.3" r="7.1"/>
+       	</g>
+       	<circle id="Coin2" fill="#F3B53D" stroke="#006CA9" stroke-width="2.2356" stroke-miterlimit="10" cx="45.9" cy="49.5" r="7.1"/>
+         </g>
+         <g id="Coin">
+         	<circle fill="#F3B53D" stroke="#006CA9" stroke-width="2.2356" stroke-miterlimit="10" cx="65.9" cy="34.3" r="7.1"/>
+         </g> -->
 
-      <!-- <g id="Layer_1">
-      	<path fill="#88CB8F" d="M55.8,74.1c-5.2,0-10.2,0.9-14.6,2.6l-9.6-5.5v10.8c-4.5,3.6-7.8,8.2-9.2,13.4H16c-1.6,0-2.8,1.3-2.8,2.8
-      		v8.5c0,1.6,1.3,2.8,2.8,2.8h7.4c4.5,10.7,17.3,18.5,32.4,18.5c18.9,0,34.1-12.1,34.1-27S74.7,74.1,55.8,74.1z"/>
-      	<path fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" d="M41.6,91.2
-      		c0,2.4-1.9,4.3-4.3,4.3c-2.4,0-4.3-1.9-4.3-4.3"/>
-      	<path fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" d="M55.8,74.1
-      		c-5.2,0-10.2,0.9-14.6,2.6l-9.6-5.5v10.8c-4.5,3.6-7.8,8.2-9.2,13.4H16c-1.6,0-2.8,1.3-2.8,2.8v8.5c0,1.6,1.3,2.8,2.8,2.8h7.4
-      		c4.5,10.7,17.3,18.5,32.4,18.5c18.9,0,34.1-12.1,34.1-27S74.7,74.1,55.8,74.1z"/>
-      	<path fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" d="M95.7,96.9
-      		c0,2.4-1.9,4.3-4.3,4.3"/>
-      	<line fill="none" stroke="#4D5152" stroke-width="2.8454" stroke-miterlimit="10" x1="91.4" y1="101.2" x2="90" y2="101.2"/>
-      	<polyline fill="#88CB8F" points="44.4,121.1 44.4,131 33.1,131 33.1,115.4 	"/>
-      	<polyline fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" points="44.4,121.1
-      		44.4,131 33.1,131 33.1,115.4 	"/>
-      	<polyline fill="#88CB8F" points="78.6,115.4 78.6,131 67.2,131 67.2,121.1 	"/>
-      	<polyline fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" points="78.6,115.4
-      		78.6,131 67.2,131 67.2,121.1 	"/>
-      	<g id="Coin3">
-      		<circle fill="#F3B53D" stroke="#006CA9" stroke-width="2.2356" stroke-miterlimit="10" cx="67.2" cy="61.3" r="7.1"/>
-      	</g>
-      	<circle id="Coin2" fill="#F3B53D" stroke="#006CA9" stroke-width="2.2356" stroke-miterlimit="10" cx="45.9" cy="49.5" r="7.1"/>
-        </g>
-        <g id="Coin">
-        	<circle fill="#F3B53D" stroke="#006CA9" stroke-width="2.2356" stroke-miterlimit="10" cx="65.9" cy="34.3" r="7.1"/>
-        </g>
-        <g id="Layer_3">
-        	<path fill="#88CB8F" d="M74.3,86.6c-4.8-3.3-11.3-5.4-18.5-5.4l-6.5,14.2L64,107.6L84,99l-5.5-12.8L74.3,86.6z"/>
-        	<path fill="none" stroke="#006948" stroke-width="2.2356" stroke-linecap="round" stroke-miterlimit="10" d="M55.8,81.2
-        		c7.2,0,13.7,2,18.5,5.4"/>
-        </g> -->
+
       </svg>
 
 		  </div>
@@ -383,6 +463,7 @@
 
     intervalId = setInterval(randomChange, 30000);
 
+    // range slider functions
     var rangeSlider = function(){
     var slider = $('.range-slider'),
         range = $('.range-slider__range'),
@@ -404,11 +485,31 @@
 
     rangeSlider();
 
+
+    function coinAnimation(){
+      if ($("#coin").hasClass("play") ) {
+    		// mario.find('div.box').addClass('empty');
+    		// $("<audio class='block'></audio>").attr({
+    		// 	'src':'http://adobewordpress.com/tasarim/include/block-sound.mp3',
+    		// 	'autoplay':'autoplay'
+    		// }).appendTo("body");
+    		// setTimeout(function(){
+    		// 	$('audio.block').remove();
+    		// }, 800);
+        $("#coin").removeClass('play');
+      }
+    	// }else{
+      setTimeout(function(){
+        $("#coin").addClass('play');
+      }, 150)
+    }
+
     $('#withdraw').on("click", function(){
       var transactionAmount = sliderAmount * -1;
 
       currAmount = currAmount + transactionAmount;
       $('#currAmount').text(currAmount);
+      coinAnimation();
       makeIoTCall(transactionAmount, currAmount);
     })
 
@@ -430,6 +531,9 @@
         intervalId = setInterval(randomChange, 30000);
       }
     })
+
+
+
 
 		// $(function () {
     //     var socket = io();
