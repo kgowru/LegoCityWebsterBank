@@ -3,7 +3,8 @@ var express = require('express'),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
 	jsforce = require('jsforce'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	opn = require('opn');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true,  parameterLimit: 1000000}));
@@ -65,4 +66,5 @@ app.get('/', function(req, res, next) {
 
 http.listen(3000, function() {
 console.log('listening on port 3000');
+opn('localhost:3000');
 });
