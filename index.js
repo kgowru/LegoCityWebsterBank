@@ -66,5 +66,5 @@ app.get('/', function(req, res, next) {
 
 http.listen(3000, function() {
 console.log('listening on port 3000');
-opn('localhost:3000');
+opn('http://localhost:3000');
 });
